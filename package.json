@@ -1,0 +1,14 @@
+{
+  "name": "mahmut-discord-bot",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "@discordjs/voice": "^0.16.0",
+    "@discordjs/rest": "^2.2.0",
+    "discord-api-types": "^0.37.0"
+  }
+}
