@@ -1,6 +1,4 @@
 const { Client, GatewayIntentBits, SlashCommandBuilder, ChannelType } = require('discord.js');
-const { ChannelType } = require('discord.js');
-const { Client, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v10');
 const { joinVoiceChannel } = require('@discordjs/voice');
