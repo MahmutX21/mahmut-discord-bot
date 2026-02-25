@@ -4,10 +4,7 @@ const { Routes } = require('discord-api-types/v10');
 const { joinVoiceChannel } = require('@discordjs/voice');
 
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildVoiceStates
-  ]
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
 });
 
 const token = process.env.TOKEN;
@@ -32,10 +29,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 (async () => {
   try {
     console.log('Slash komutları yükleniyor...');
-    await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId),
-      { body: commands }
-    );
+    await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands });
     console.log('Slash komutları yüklendi!');
   } catch (error) {
     console.error(error);
@@ -51,20 +45,18 @@ client.on('interactionCreate', async interaction => {
 
   if (interaction.commandName === 'join') {
     const channel = interaction.options.getChannel('kanal');
-
     if (!channel || channel.type !== ChannelType.GuildVoice) {
       return interaction.reply({ content: 'Geçerli bir ses kanalı seç!', ephemeral: true });
     }
 
     try {
-      joinVoiceChannel({
+      const connection = joinVoiceChannel({
         channelId: channel.id,
         guildId: interaction.guild.id,
         adapterCreator: interaction.guild.voiceAdapterCreator,
       });
 
       await interaction.reply({ content: `✅ ${channel.name} kanalına girdim!`, ephemeral: true });
-
     } catch (err) {
       console.error(err);
       await interaction.reply({ content: 'Hata oluştu!', ephemeral: true });
