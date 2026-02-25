@@ -1,3 +1,4 @@
+const { Client, GatewayIntentBits, SlashCommandBuilder, ChannelType } = require('discord.js');
 const { ChannelType } = require('discord.js');
 const { Client, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
 const { REST } = require('@discordjs/rest');
@@ -23,7 +24,7 @@ const commands = [
       option.setName('kanal')
         .setDescription('Katılınacak ses kanalı')
         .setRequired(true)
-        .addChannelTypes(2)
+        .addChannelTypes(ChannelType.GuildVoice)
     )
     .toJSON()
 ];
@@ -53,7 +54,7 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName === 'join') {
     const channel = interaction.options.getChannel('kanal');
 
-    if (!channel || channel.type !== 2) {
+    if (!channel || channel.type !== ChannelType.GuildVoice) {
       return interaction.reply({ content: 'Geçerli bir ses kanalı seç!', ephemeral: true });
     }
 
